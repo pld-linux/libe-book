@@ -5,19 +5,24 @@
 Summary:	Library and tools for reading and converting various non-HTML reflowable e-book formats
 Summary(pl.UTF-8):	Biblioteka i narzedzia do odczytu i konwersji różnych formatów e-booków
 Name:		libe-book
-Version:	0.0.3
+Version:	0.1.0
 Release:	1
 License:	LGPL v2.1+ or MPL v2.0+
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/libebook/%{name}-%{version}.tar.xz
-# Source0-md5:	cd3d71e8ad6df3d815ae977ec1ba667c
+# Source0-md5:	0a49e90b46193c1ae1e55ff0486b5090
 URL:		http://libebook.sourceforge.net/
 BuildRequires:	boost-devel
 BuildRequires:	doxygen
 BuildRequires:	gperf
+BuildRequires:	libCSS-devel >= 0.3.0
+BuildRequires:	libhubbub-devel >= 0.3.0
 BuildRequires:	libicu-devel
+BuildRequires:	libmspack-devel
+BuildRequires:	libparserutils-devel
+BuildRequires:	librevenge-devel >= 0.0
 BuildRequires:	libstdc++-devel
-BuildRequires:	libwpd-devel >= 0.9.5
+BuildRequires:	libwapcaplet-devel
 BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	pkgconfig >= 1:0.20
 BuildRequires:	tar >= 1:1.22
@@ -61,8 +66,13 @@ Summary:	Header files for libe-book library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libe-book
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	libCSS-devel >= 0.3.0
+Requires:	libhubbub-devel >= 0.3.0
+Requires:	libicu-devel
+Requires:	libmspack-devel
+Requires:	librevenge-devel >= 0.0
 Requires:	libstdc++-devel
-Requires:	libwpd-devel >= 0.9.5
+Requires:	libxml2-devel >= 2.0
 Requires:	zlib-devel
 
 %description devel
@@ -94,11 +104,26 @@ API documentation for libe-book library.
 %description apidocs -l pl.UTF-8
 Dokumentacja API biblioteki libe-book.
 
+%package tools
+Summary:	Tools to transform e-books into other formats
+Summary(pl.UTF-8):	Programy przekształcania e-booków do innych formatów
+Group:		Applications/Publishing
+Requires:	%{name} = %{version}-%{release}
+
+%description tools
+Tools to transform e-books into other formats. Currently supported:
+HTML, text, raw.
+
+%description tools -l pl.UTF-8
+Narzędzia do przekształcania e-booków do innych formatów. Aktualnie
+obsługiwane są HTML, tekst i format surowy.
+
 %prep
 %setup -q
 
 %build
 %configure \
+	--enable-experimental \
 	--disable-silent-rules \
 	%{?with_static_libs:--enable-static}
 %{__make}
@@ -123,24 +148,28 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO
-%attr(755,root,root) %{_bindir}/ebook2html
-%attr(755,root,root) %{_bindir}/ebook2raw
-%attr(755,root,root) %{_bindir}/ebook2text
-%attr(755,root,root) %{_libdir}/libe-book-0.0.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libe-book-0.0.so.0
+%attr(755,root,root) %{_libdir}/libe-book-0.1.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libe-book-0.1.so.1
+%{_datadir}/libe-book
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libe-book-0.0.so
-%{_includedir}/libe-book-0.0
-%{_pkgconfigdir}/libe-book-0.0.pc
+%attr(755,root,root) %{_libdir}/libe-book-0.1.so
+%{_includedir}/libe-book-0.1
+%{_pkgconfigdir}/libe-book-0.1.pc
 
 %if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libe-book-0.0.a
+%{_libdir}/libe-book-0.1.a
 %endif
 
 %files apidocs
 %defattr(644,root,root,755)
 %doc docs/doxygen/html/*
+
+%files tools
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/ebook2html
+%attr(755,root,root) %{_bindir}/ebook2raw
+%attr(755,root,root) %{_bindir}/ebook2text
