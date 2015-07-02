@@ -1,12 +1,12 @@
 #
 # Conditional build:
 %bcond_without	static_libs	# don't build static libraries
-#
+
 Summary:	Library and tools for reading and converting various non-HTML reflowable e-book formats
 Summary(pl.UTF-8):	Biblioteka i narzedzia do odczytu i konwersji różnych formatów e-booków
 Name:		libe-book
 Version:	0.1.2
-Release:	2
+Release:	3
 License:	LGPL v2.1+ or MPL v2.0+
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/libebook/%{name}-%{version}.tar.xz
@@ -99,6 +99,9 @@ Statyczna biblioteka libe-book.
 Summary:	libe-book API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki libe-book
 Group:		Documentation
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description apidocs
 API documentation for libe-book library.
