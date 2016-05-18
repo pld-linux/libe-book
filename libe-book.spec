@@ -6,18 +6,19 @@ Summary:	Library and tools for reading and converting various non-HTML reflowabl
 Summary(pl.UTF-8):	Biblioteka i narzedzia do odczytu i konwersji różnych formatów e-booków
 Name:		libe-book
 Version:	0.1.2
-Release:	5
+Release:	6
 License:	LGPL v2.1+ or MPL v2.0+
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/libebook/%{name}-%{version}.tar.xz
 # Source0-md5:	19d84f4a97aab32d350d1f47ea3da0b3
 Patch0:		%{name}-missing.patch
 Patch1:		boost-1.59.patch
+Patch2:		%{name}-css.patch
 URL:		http://libebook.sourceforge.net/
 BuildRequires:	boost-devel
 BuildRequires:	doxygen
 BuildRequires:	gperf
-BuildRequires:	libCSS-devel >= 0.3.0
+BuildRequires:	libCSS-devel >= 0.6.0
 BuildRequires:	libhubbub-devel >= 0.3.0
 BuildRequires:	libicu-devel
 BuildRequires:	libmspack-devel
@@ -30,7 +31,7 @@ BuildRequires:	pkgconfig >= 1:0.20
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 BuildRequires:	zlib-devel
-Requires:	libCSS >= 0.3.0
+Requires:	libCSS >= 0.6.0
 Requires:	libhubbub >= 0.3.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -69,7 +70,7 @@ Summary:	Header files for libe-book library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libe-book
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	libCSS-devel >= 0.3.0
+Requires:	libCSS-devel >= 0.6.0
 Requires:	libhubbub-devel >= 0.3.0
 Requires:	libicu-devel
 Requires:	libmspack-devel
@@ -128,6 +129,7 @@ obsługiwane są HTML, tekst i format surowy.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__libtoolize}
