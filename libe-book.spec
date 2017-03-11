@@ -6,7 +6,7 @@ Summary:	Library and tools for reading and converting various non-HTML reflowabl
 Summary(pl.UTF-8):	Biblioteka i narzedzia do odczytu i konwersji różnych formatów e-booków
 Name:		libe-book
 Version:	0.1.2
-Release:	7
+Release:	8
 License:	LGPL v2.1+ or MPL v2.0+
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/libebook/%{name}-%{version}.tar.xz
@@ -16,6 +16,7 @@ Patch1:		boost-1.59.patch
 Patch2:		%{name}-css.patch
 URL:		http://libebook.sourceforge.net/
 BuildRequires:	boost-devel
+BuildRequires:	cppunit-devel
 BuildRequires:	doxygen
 BuildRequires:	gperf
 BuildRequires:	libCSS-devel >= 0.6.0
@@ -132,6 +133,7 @@ obsługiwane są HTML, tekst i format surowy.
 %patch2 -p1
 
 %build
+export CXXFLAGS="%{rpmcxxflags} -Wno-unused-function"
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
