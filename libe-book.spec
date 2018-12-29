@@ -5,15 +5,13 @@
 Summary:	Library and tools for reading and converting various non-HTML reflowable e-book formats
 Summary(pl.UTF-8):	Biblioteka i narzedzia do odczytu i konwersji różnych formatów e-booków
 Name:		libe-book
-Version:	0.1.2
-Release:	10
+Version:	0.1.3
+Release:	1
 License:	LGPL v2.1+ or MPL v2.0+
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/libebook/%{name}-%{version}.tar.xz
-# Source0-md5:	19d84f4a97aab32d350d1f47ea3da0b3
+# Source0-md5:	2956f1c5e7950b0018979a132165da8b
 Patch0:		%{name}-missing.patch
-Patch1:		boost-1.59.patch
-Patch2:		%{name}-css.patch
 URL:		http://libebook.sourceforge.net/
 BuildRequires:	boost-devel
 BuildRequires:	cppunit-devel
@@ -22,10 +20,11 @@ BuildRequires:	gperf
 BuildRequires:	libCSS-devel >= 0.6.0
 BuildRequires:	libhubbub-devel >= 0.3.0
 BuildRequires:	libicu-devel
+BuildRequires:	liblangtag-devel
 BuildRequires:	libmspack-devel
 BuildRequires:	libparserutils-devel
 BuildRequires:	librevenge-devel >= 0.0
-BuildRequires:	libstdc++-devel
+BuildRequires:	libstdc++-devel >= 6:4.7
 BuildRequires:	libwapcaplet-devel
 BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	pkgconfig >= 1:0.20
@@ -74,9 +73,10 @@ Requires:	%{name} = %{version}-%{release}
 Requires:	libCSS-devel >= 0.6.0
 Requires:	libhubbub-devel >= 0.3.0
 Requires:	libicu-devel
+Requires:	liblangtag-devel
 Requires:	libmspack-devel
 Requires:	librevenge-devel >= 0.0
-Requires:	libstdc++-devel
+Requires:	libstdc++-devel >= 6:4.7
 Requires:	libxml2-devel >= 2.0
 Requires:	zlib-devel
 
@@ -129,8 +129,6 @@ obsługiwane są HTML, tekst i format surowy.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
 
 %build
 export CXXFLAGS="%{rpmcxxflags} -Wno-unused-function"
