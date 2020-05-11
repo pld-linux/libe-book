@@ -1,5 +1,6 @@
 #
 # Conditional build:
+%bcond_without	experimental	# without experimental HTML
 %bcond_without	static_libs	# don't build static libraries
 
 Summary:	Library and tools for reading and converting various non-HTML reflowable e-book formats
@@ -17,11 +18,11 @@ BuildRequires:	boost-devel
 BuildRequires:	cppunit-devel
 BuildRequires:	doxygen
 BuildRequires:	gperf
-BuildRequires:	libCSS-devel >= 0.6.0
-BuildRequires:	libhubbub-devel >= 0.3.0
+%{?with_experimental:BuildRequires:	libCSS-devel >= 0.6.0}
+%{?with_experimental:BuildRequires:	libhubbub-devel >= 0.3.0}
 BuildRequires:	libicu-devel
 BuildRequires:	liblangtag-devel
-BuildRequires:	libmspack-devel
+%{?with_experimental:BuildRequires:	libmspack-devel}
 BuildRequires:	libparserutils-devel
 BuildRequires:	librevenge-devel >= 0.0
 BuildRequires:	libstdc++-devel >= 6:4.7
@@ -31,8 +32,8 @@ BuildRequires:	pkgconfig >= 1:0.20
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 BuildRequires:	zlib-devel
-Requires:	libCSS >= 0.6.0
-Requires:	libhubbub >= 0.3.0
+%{?with_experimental:Requires:	libCSS >= 0.6.0}
+%{?with_experimental:Requires:	libhubbub >= 0.3.0}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -70,11 +71,11 @@ Summary:	Header files for libe-book library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libe-book
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	libCSS-devel >= 0.6.0
-Requires:	libhubbub-devel >= 0.3.0
+%{?with_experimental:Requires:	libCSS-devel >= 0.6.0}
+%{?with_experimental:Requires:	libhubbub-devel >= 0.3.0}
 Requires:	libicu-devel
 Requires:	liblangtag-devel
-Requires:	libmspack-devel
+%{?with_experimental:Requires:	libmspack-devel}
 Requires:	librevenge-devel >= 0.0
 Requires:	libstdc++-devel >= 6:4.7
 Requires:	libxml2-devel >= 2.0
@@ -138,7 +139,7 @@ export CXXFLAGS="%{rpmcxxflags} -Wno-unused-function"
 %{__autoheader}
 %{__automake}
 %configure \
-	--enable-experimental \
+	%{__enable_disable experimental} \
 	--disable-silent-rules \
 	%{?with_static_libs:--enable-static}
 %{__make}
@@ -165,7 +166,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog NEWS README TODO
 %attr(755,root,root) %{_libdir}/libe-book-0.1.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libe-book-0.1.so.1
-%{_datadir}/libe-book
+%{?with_experimental:%{_datadir}/libe-book}
 
 %files devel
 %defattr(644,root,root,755)
