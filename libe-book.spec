@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_without	experimental	# without experimental HTML
+%bcond_with	experimental	# with experimental HTML
 %bcond_without	static_libs	# don't build static libraries
 
 Summary:	Library and tools for reading and converting various non-HTML reflowable e-book formats
