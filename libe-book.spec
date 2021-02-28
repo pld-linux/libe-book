@@ -104,9 +104,7 @@ Statyczna biblioteka libe-book.
 Summary:	libe-book API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki libe-book
 Group:		Documentation
-%if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
-%endif
 
 %description apidocs
 API documentation for libe-book library.
