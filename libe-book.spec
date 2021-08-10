@@ -7,7 +7,7 @@ Summary:	Library and tools for reading and converting various non-HTML reflowabl
 Summary(pl.UTF-8):	Biblioteka i narzedzia do odczytu i konwersji różnych formatów e-booków
 Name:		libe-book
 Version:	0.1.3
-Release:	4
+Release:	5
 License:	LGPL v2.1+ or MPL v2.0+
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/libebook/%{name}-%{version}.tar.xz
