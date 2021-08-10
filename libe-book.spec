@@ -13,6 +13,7 @@ Group:		Libraries
 Source0:	http://downloads.sourceforge.net/libebook/%{name}-%{version}.tar.xz
 # Source0-md5:	2956f1c5e7950b0018979a132165da8b
 Patch0:		%{name}-missing.patch
+Patch1:		icu68.patch
 URL:		http://libebook.sourceforge.net/
 BuildRequires:	boost-devel
 BuildRequires:	cppunit-devel
@@ -129,6 +130,7 @@ obsługiwane są HTML, tekst i format surowy.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 export CXXFLAGS="%{rpmcxxflags} -Wno-unused-function"
