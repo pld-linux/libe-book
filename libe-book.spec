@@ -30,6 +30,7 @@ BuildRequires:	libstdc++-devel >= 6:4.7
 BuildRequires:	libwapcaplet-devel
 BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	pkgconfig >= 1:0.20
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.527
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
