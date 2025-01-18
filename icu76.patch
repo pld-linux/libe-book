@@ -1,0 +1,11 @@
+--- libe-book-0.1.3/configure.ac.orig	2018-01-01 12:17:55.000000000 +0100
++++ libe-book-0.1.3/configure.ac	2025-01-14 19:44:25.373374778 +0100
+@@ -127,7 +127,7 @@
+ # ========
+ # Find icu
+ # ========
+-PKG_CHECK_MODULES([ICU], [icu-i18n])
++PKG_CHECK_MODULES([ICU], [icu-i18n icu-uc])
+ AC_SUBST(ICU_CFLAGS)
+ AC_SUBST(ICU_LIBS)
+ 
