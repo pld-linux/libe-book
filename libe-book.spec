@@ -1,21 +1,22 @@
 #
 # Conditional build:
-%bcond_with	experimental	# with experimental HTML
-%bcond_without	static_libs	# don't build static libraries
+%bcond_with	experimental	# experimental HTML support
+%bcond_without	static_libs	# static library
 
 Summary:	Library and tools for reading and converting various non-HTML reflowable e-book formats
 Summary(pl.UTF-8):	Biblioteka i narzedzia do odczytu i konwersji różnych formatów e-booków
 Name:		libe-book
-Version:	0.1.3
-Release:	12
+Version:	0.1.4
+Release:	1
 License:	LGPL v2.1+ or MPL v2.0+
 Group:		Libraries
-Source0:	http://downloads.sourceforge.net/libebook/%{name}-%{version}.tar.xz
-# Source0-md5:	2956f1c5e7950b0018979a132165da8b
+Source0:	https://downloads.sourceforge.net/libebook/%{name}-%{version}.tar.xz
+# Source0-md5:	cf934963a96cea15e9795e98ec9244c4
 Patch0:		%{name}-missing.patch
-Patch1:		icu68.patch
 Patch2:		icu76.patch
-URL:		http://libebook.sourceforge.net/
+URL:		https://libebook.sourceforge.net/
+BuildRequires:	autoconf >= 2.65
+BuildRequires:	automake >= 1:1.11
 BuildRequires:	boost-devel
 BuildRequires:	cppunit-devel
 BuildRequires:	doxygen
@@ -28,7 +29,8 @@ BuildRequires:	liblangtag-devel
 BuildRequires:	libparserutils-devel
 BuildRequires:	librevenge-devel >= 0.0
 BuildRequires:	libstdc++-devel >= 6:4.7
-BuildRequires:	libwapcaplet-devel
+BuildRequires:	libtool >= 2:2
+%{?with_experimental:BuildRequires:	libwapcaplet-devel}
 BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	pkgconfig >= 1:0.20
 BuildRequires:	rpm-build >= 4.6
@@ -131,9 +133,8 @@ obsługiwane są HTML, tekst i format surowy.
 
 %prep
 %setup -q
-%patch -P 0 -p1
-%patch -P 1 -p1
-%patch -P 2 -p1
+%patch -P0 -p1
+%patch -P2 -p1
 
 %build
 export CXXFLAGS="%{rpmcxxflags} -Wno-unused-function"
@@ -168,13 +169,15 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO
-%attr(755,root,root) %{_libdir}/libe-book-0.1.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libe-book-0.1.so.1
-%{?with_experimental:%{_datadir}/libe-book}
+%{_libdir}/libe-book-0.1.so.*.*.*
+%ghost %{_libdir}/libe-book-0.1.so.1
+%if %{with experimental}
+%{_datadir}/libe-book
+%endif
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libe-book-0.1.so
+%{_libdir}/libe-book-0.1.so
 %{_includedir}/libe-book-0.1
 %{_pkgconfigdir}/libe-book-0.1.pc
 
